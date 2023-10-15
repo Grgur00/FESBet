@@ -1,0 +1,37 @@
+.roulette-img {
+  -webkit-transition: -webkit-transform 2s ease-out;
+  transition: transform 2s ease-out; /* Standard syntax for transition */
+}
+
+.roulette-img.active {
+  -webkit-transform: rotate(var(--rotation, 660deg));
+  transform: rotate(var(--rotation, 660deg)); /* Standard syntax for rotation */
+}
+
+.arrow{
+  position: absolute;
+  top: -20px; left: 50%;
+  transform: translateX(-50%) rotate(180deg);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 15px solid rgb(0, 0, 0);
+}
+
+.clicked {
+  background-color: purple !important;
+}
+
+
+.red {
+  background-color: red !important;
+}
+
+.purple {
+  background-color: purple !important;
+}
+
+.green {
+  background-color: green !important;
+}

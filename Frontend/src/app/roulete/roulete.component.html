@@ -1,0 +1,26 @@
+<h1>Roulette</h1>
+
+<div style="position: relative; display: inline-block;">
+  <a href="#" (click)="spinRoulette($event)">
+    <img #rouletteImage (click)="onClick($event)" class="roulette-img" width="400" height="400" src="assets/Imgaes/imageedit_4_4588350095copy.png">
+  </a>
+  <div class="arrow"></div>
+</div>
+
+<div *ngIf="displayDiv">Click on the wheel to reset it and play again</div>
+<div *ngIf="!isSpinning">Last winning number: {{wheelNumbers[this.winningNumber]}}</div>
+
+<p>Hold down the mouse button to spin.</p>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 20px;">
+  <div *ngFor="let number of numsForDisplay; let i = index"
+       (mouseover)="onHover($event)"
+       (mouseleave)="onLeave($event)"
+       (click)="onClickButton($event, i)"
+       [ngStyle]="{ 'background-color': getBackgroundColor(number, i) }"
+       style="border: 1px solid #ddd; padding: 10px; text-align: center; color: white;">
+    {{ number }}
+  </div>
+</div>
+
+
