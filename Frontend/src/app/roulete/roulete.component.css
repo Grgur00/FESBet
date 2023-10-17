@@ -24,8 +24,8 @@
 }
 
 
-.red {
-  background-color: red !important;
+.gold {
+  background-color: gold !important;
 }
 
 .purple {
@@ -34,4 +34,61 @@
 
 .green {
   background-color: green !important;
+}
+
+.black {
+  background-color: black !important;
+}
+
+.red {
+  background-color: red !important
+}
+
+
+.unclickable {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.grid-item {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+  color: white;
+
+}
+
+.firstRowAlone {
+  grid-column: 1 / span 3;
+}
+
+.red-black-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.red-button,
+.black-button {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+  color: white;
+  background-color: lightgray;
+}
+
+.red-button {
+  background-color: red;
+}
+
+.black-button {
+  background-color: black;
 }

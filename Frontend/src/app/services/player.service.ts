@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IPlayer } from '../ultis/Player-model';
+import { IPlayer } from '../ultis/models';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Injectable({
@@ -9,9 +9,6 @@ export class PlayerService {
   player: IPlayer = {
     username: 'example_username',
     credits: 1000,
-    asObservable: function (): unknown {
-      throw new Error('Function not implemented.');
-    }
   };
 
   updateCredits(amount: number): void {

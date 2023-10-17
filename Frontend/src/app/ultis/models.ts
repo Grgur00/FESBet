@@ -1,5 +1,9 @@
 export interface IPlayer{
-  asObservable(): unknown;
   username: string;
   credits: number;
+}
+
+export interface WheelNumber{
+  value: number;
+  colour: string
 }

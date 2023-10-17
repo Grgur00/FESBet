@@ -1,6 +1,6 @@
 import { Component, Injectable, OnInit,  } from '@angular/core';
 import { Router } from '@angular/router';
-import { IPlayer } from '../ultis/Player-model';
+import { IPlayer } from '../ultis/models';
 import { PlayerService } from '../services/player.service';
 
 @Component({
