@@ -49,6 +49,7 @@ export class RouleteComponent implements OnInit {
   onClickColour(event: any, colour: string) {
     if (this.clickedClours.includes(colour)) {
       this.clickedClours = this.clickedClours.filter(item => item !== colour);
+      console.log(this.clickedClours);
       this.playerService.updateCredits(5);
       this.playerBet += -5;
     } else {
@@ -58,7 +59,7 @@ export class RouleteComponent implements OnInit {
     }
   }
 
-  getBackgroundColor(number: any, index: number) {
+  getBackgroundColorNumber(index: number) {
     const buttonValue = this.numsForDisplay[index];
     const color = this.wheelNumberColor(index);
     if (this.clickedNumbers.includes(index)) {
@@ -67,6 +68,17 @@ export class RouleteComponent implements OnInit {
       return 'gold';
     } else {
       return color;
+    }
+  }
+
+
+  getBackgroundColorColoursButton(colour: string) {
+    if (this.clickedClours.includes(colour)) {
+      return 'purple';
+    } else if (this.hoveredItem === colour) {
+      return 'gold';
+    } else {
+      return colour;
     }
   }
 
@@ -123,6 +135,7 @@ export class RouleteComponent implements OnInit {
       this.clickedNumbers = [];
       this.clickedClours = [];
       this.playerBet = 0;
+      console.log(this.clickedClours);
     }
   }
 
@@ -132,21 +145,7 @@ export class RouleteComponent implements OnInit {
     return color;
   }
 
-  onClickRed(event: any) {
-    if (this.displayDiv) {
-      return;
-    }
-    const redButton = event.target;
-    redButton.classList.toggle('clicked');
-  }
 
-  onClickBlack(event: any) {
-    if (this.displayDiv) {
-      return;
-    }
-    const blackButton = event.target;
-    blackButton.classList.toggle('clicked');
-  }
 
 }
 

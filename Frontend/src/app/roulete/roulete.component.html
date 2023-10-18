@@ -13,18 +13,19 @@
 
 <div class="red-black-buttons grid-container">
   <button class="red-button grid-item"
-          (mouseover)="displayDiv ? null : onHover($event)"
-          (mouseleave)="displayDiv ? null : onLeave($event)"
-          (click)="displayDiv ? null : onClickRed($event)"
+          (mouseover)="onHover($event)"
+          (mouseleave)="onLeave($event)"
           (click)="displayDiv ? null : onClickColour($event, 'red')"
-          [ngClass]="{ unclickable: displayDiv}">Red</button>
+          [ngClass]="{ unclickable: displayDiv}"
+          [ngStyle]="{'background-color' : getBackgroundColorColoursButton('red')}">Red</button>
 
   <button class="black-button grid-item"
           (mouseover)="displayDiv ? null : onHover($event)"
           (mouseleave)="displayDiv ? null : onLeave($event)"
-          (click)="displayDiv ? null : onClickBlack($event)"
-          (click)="displayDiv ? null : onClickColour($event, 'black')"
+          (click)="displayDiv ? null : onClickColour($event,'black')"
+          [ngStyle]="{'background-color' : getBackgroundColorColoursButton('black')}"
           [ngClass]="{ unclickable: displayDiv}"
+
           >Black</button>
 </div>
 
@@ -35,7 +36,7 @@
     (mouseover)="onHover($event)"
     (mouseleave)="onLeave($event)"
     (click)="displayDiv ? null : onClickNumber($event, i)"
-    [ngStyle]="{ 'background-color': getBackgroundColor(number, i) }"
+    [ngStyle]="{ 'background-color': getBackgroundColorNumber(i) }"
     [ngClass]="{ unclickable: displayDiv, firstRowAlone: i === 0 }"
     class="grid-item"
   >
