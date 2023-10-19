@@ -16,15 +16,15 @@
           (mouseover)="onHover($event)"
           (mouseleave)="onLeave($event)"
           (click)="displayDiv ? null : onClickColour($event, 'red')"
-          [ngClass]="{ unclickable: displayDiv}"
+          [ngClass]="{ unclickable: isSpinning}"
           [ngStyle]="{'background-color' : getBackgroundColorColoursButton('red')}">Red</button>
 
   <button class="black-button grid-item"
-          (mouseover)="displayDiv ? null : onHover($event)"
-          (mouseleave)="displayDiv ? null : onLeave($event)"
-          (click)="displayDiv ? null : onClickColour($event,'black')"
+          (mouseover)="onHover($event)"
+          (mouseleave)="onLeave($event)"
+          (click)="isSpinning ? null : onClickColour($event,'black')"
           [ngStyle]="{'background-color' : getBackgroundColorColoursButton('black')}"
-          [ngClass]="{ unclickable: displayDiv}"
+          [ngClass]="{ unclickable: isSpinning }"
 
           >Black</button>
 </div>
@@ -35,9 +35,9 @@
     *ngFor="let number of numsForDisplay; let i = index"
     (mouseover)="onHover($event)"
     (mouseleave)="onLeave($event)"
-    (click)="displayDiv ? null : onClickNumber($event, i)"
+    (click)="isSpinning ? null : onClickNumber($event, i)"
     [ngStyle]="{ 'background-color': getBackgroundColorNumber(i) }"
-    [ngClass]="{ unclickable: displayDiv, firstRowAlone: i === 0 }"
+    [ngClass]="{ unclickable: isSpinning, firstRowAlone: i === 0 }"
     class="grid-item"
   >
     {{ number }}
