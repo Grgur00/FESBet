@@ -7,8 +7,10 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 })
 export class PlayerService {
   player: IPlayer = {
+    id: 0,
     username: 'example_username',
-    credits: 1000,
+    email: 'mail@mail.com',
+    credits: 1000
   };
 
   updateCredits(amount: number): void {

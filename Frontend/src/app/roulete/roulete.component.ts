@@ -19,41 +19,44 @@ export class RouleteComponent implements OnInit {
   @ViewChild(MenuComponent) menuComponent!: MenuComponent;
   displayDiv: boolean = false;
   hoveredItem: any = null;
-  winningNumber: number = 0;
+  winningNumberIndex: number = 0;
   clickedItem: any;
   isSpinning: boolean = false;
   spinIndex: number = 0;
   wheelNumbers: WheelNumber[] = wheelNumbersArray;
-  clickedNumbers: any[] = [];
-  clickedClours: any[] = [];
+  selectedNumbers: any[] = [];
+  lastBetNumbers: number[] = [];
+  selectedColours: any[] = [];
+  lastBetColours: any[] = [];
   numsForDisplay: number[] = wheelNumbersInOrder;
 
   playerBet: number = 0;
+  lastPlayerBet: number = 0;
 
   constructor(private playerService: PlayerService) {}
 
   ngOnInit(): void {}
 
   onClickNumber(event: any, index: number) {
-    if (this.clickedNumbers.includes(index)) {
-      this.clickedNumbers = this.clickedNumbers.filter(item => item !== index);
+    if (this.selectedNumbers.includes(index)) {
+      this.selectedNumbers = this.selectedNumbers.filter(item => item !== index);
       this.playerService.updateCredits(5);
       this.playerBet += -5;
     } else {
-      this.clickedNumbers.push(index);
+      this.selectedNumbers.push(index);
       this.playerService.updateCredits(-5);
       this.playerBet += 5;
     }
   }
 
   onClickColour(event: any, colour: string) {
-    if (this.clickedClours.includes(colour)) {
-      this.clickedClours = this.clickedClours.filter(item => item !== colour);
-      console.log(this.clickedClours);
+    if (this.selectedColours.includes(colour)) {
+      this.selectedColours = this.selectedColours.filter(item => item !== colour);
+      console.log(this.selectedColours);
       this.playerService.updateCredits(5);
       this.playerBet += -5;
     } else {
-      this.clickedClours.push(colour);
+      this.selectedColours.push(colour);
       this.playerService.updateCredits(-5);
       this.playerBet += 5;
     }
@@ -62,7 +65,7 @@ export class RouleteComponent implements OnInit {
   getBackgroundColorNumber(index: number) {
     const buttonValue = this.numsForDisplay[index];
     const color = this.wheelNumberColor(index);
-    if (this.clickedNumbers.includes(index)) {
+    if (this.selectedNumbers.includes(index)) {
       return 'purple';
     } else if (this.hoveredItem === buttonValue) {
       return 'gold';
@@ -73,7 +76,7 @@ export class RouleteComponent implements OnInit {
 
 
   getBackgroundColorColoursButton(colour: string) {
-    if (this.clickedClours.includes(colour)) {
+    if (this.selectedColours.includes(colour)) {
       return 'purple';
     } else if (this.hoveredItem === colour) {
       return 'gold';
@@ -111,16 +114,15 @@ export class RouleteComponent implements OnInit {
       event.target.style.setProperty('--rotation', `-${deg}deg`);
       event.target.classList.add('active');
       this.isSpinning = true;
-
-      this.winningNumber = this.findLandingPart(deg);
-      console.log(this.winningNumber);
+      this.winningNumberIndex = this.findLandingPart(deg);
+      console.log(this.winningNumberIndex);
 
       setTimeout(() => {
         this.displayDiv = true;
-        if (this.clickedNumbers.includes(this.wheelNumbers[this.winningNumber].value)) {
+        if (this.selectedNumbers.includes(this.wheelNumbers[this.winningNumberIndex].value)) {
           this.playerService.updateCredits(180);
         }
-        if(this.clickedClours.includes(this.wheelNumbers[this.winningNumber].colour)){
+        if(this.selectedColours.includes(this.wheelNumbers[this.winningNumberIndex].colour)){
           this.playerService.updateCredits(10);
         }
 
@@ -132,10 +134,11 @@ export class RouleteComponent implements OnInit {
       event.target.classList.remove('active');
       this.displayDiv = false;
       this.isSpinning = false;
-      this.clickedNumbers = [];
-      this.clickedClours = [];
+      this.lastBetNumbers = this.selectedNumbers;
+      this.selectedNumbers = [];
+      this.selectedColours = [];
+      this. lastPlayerBet = this.playerBet;
       this.playerBet = 0;
-      console.log(this.clickedClours);
     }
   }
 
@@ -145,7 +148,22 @@ export class RouleteComponent implements OnInit {
     return color;
   }
 
+  replayLastBet(){
+    this.playerService.updateCredits(this.playerBet);
+    this.clearAllBets();
+    this.selectedNumbers = this.lastBetNumbers;
+    this.selectedColours = this.lastBetColours;
+    this.playerBet = this.lastPlayerBet;
+    this.lastPlayerBet = 0;
+    this.playerService.updateCredits(-this.playerBet);
+  }
 
+  clearAllBets(){
+    this.selectedNumbers = [];
+    this.selectedColours = [];
+    this.playerService.updateCredits(this.playerBet);
+    this.playerBet = 0;
+  }
 
 }
 

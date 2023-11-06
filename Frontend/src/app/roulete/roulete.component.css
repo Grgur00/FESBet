@@ -92,3 +92,16 @@
 .black-button {
   background-color: black;
 }
+
+.utility-buttons {
+  display: flex;
+  margin-top: 10px;
+  padding: auto;
+  display: grid;
+  
+}
+
+.utility-button{
+  background-color: green;
+  color: white;
+}

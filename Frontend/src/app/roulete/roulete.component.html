@@ -8,8 +8,17 @@
 </div>
 
 <div *ngIf="displayDiv">Click on the wheel to reset it and play again</div>
-<div *ngIf="!isSpinning">Last winning number: {{wheelNumbers[this.winningNumber].value}} ({{wheelNumberColor(this.winningNumber) }})</div>
+<div *ngIf="!isSpinning">Last winning number: {{wheelNumbers[this.winningNumberIndex].value}} ({{wheelNumberColor(this.winningNumberIndex) }})</div>
 <div *ngIf="!isSpinning">Your bet {{playerBet}} credits</div>
+
+<div *ngIf="!isSpinning" class="utility-buttons">
+  <button class="utility-button" (click)="replayLastBet()" style="margin-bottom: 5px ;">
+    Replay your last bet.
+  </button>
+  <button class="utility-button" (click)="clearAllBets()">
+    Clear all bets.
+  </button>
+</div>
 
 <div class="red-black-buttons grid-container">
   <button class="red-button grid-item"
