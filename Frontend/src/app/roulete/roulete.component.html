@@ -9,7 +9,22 @@
 
 <div *ngIf="displayDiv">Click on the wheel to reset it and play again</div>
 <div *ngIf="!isSpinning">Last winning number: {{wheelNumbers[this.winningNumberIndex].value}} ({{wheelNumberColor(this.winningNumberIndex) }})</div>
-<div *ngIf="!isSpinning">Your bet {{playerBet}} credits</div>
+<div *ngIf="!isSpinning">Your bet {{totalPlayerBet}} credits</div>
+
+<div class="image-row">
+  <div class="image-button" (click)="setPlayerBet(5)">
+    <img src="image1.jpg" alt="Button 1" />
+    5
+  </div>
+  <div class="image-button" (click)="setPlayerBet(10)">
+    <img src="image2.jpg" alt="Button 2" />
+    10
+  </div>
+  <div class="image-button" (click)="setPlayerBet(20)">
+    <img src="image3.jpg" alt="Button 3" />
+    20
+  </div>
+</div>
 
 <div *ngIf="!isSpinning" class="utility-buttons">
   <button class="utility-button" (click)="replayLastBet()" style="margin-bottom: 5px ;">
@@ -40,17 +55,17 @@
 
 
 <div class="grid-container">
-  <div
-    *ngFor="let number of numsForDisplay; let i = index"
+  <button
     (mouseover)="onHover($event)"
     (mouseleave)="onLeave($event)"
+    *ngFor="let number of numsForDisplay; let i = index"
     (click)="isSpinning ? null : onClickNumber($event, i)"
     [ngStyle]="{ 'background-color': getBackgroundColorNumber(i) }"
     [ngClass]="{ unclickable: isSpinning, firstRowAlone: i === 0 }"
     class="grid-item"
   >
-    {{ number }}
-  </div>
+    {{ number }} <br> {{wheelNumbers[this.findBetAmmountFromIndex(number)].betOnNumber}}
+  </button>
 </div>
 
 

@@ -62,8 +62,8 @@
   padding: 10px;
   text-align: center;
   color: white;
-
 }
+
 
 .firstRowAlone {
   grid-column: 1 / span 3;
@@ -104,4 +104,32 @@
 .utility-button{
   background-color: green;
   color: white;
+}
+
+.image-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+}
+
+.image-button {
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.image-button img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.button-counter {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background-color: #ddd;
+  padding: 5px;
+  border-radius: 5px;
 }
