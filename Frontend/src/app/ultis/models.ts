@@ -7,5 +7,6 @@ export interface IPlayer{
 
 export interface WheelNumber{
   value: number;
-  colour: string
+  colour: string;
+  betOnNumber: number;
 }
