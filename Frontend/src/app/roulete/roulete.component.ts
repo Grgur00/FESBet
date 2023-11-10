@@ -142,7 +142,6 @@ export class RouleteComponent implements OnInit {
 
         }
         if(this.selectedColours.includes(this.wheelNumbers[this.winningNumberIndex].colour)){
-          console.log(this.wheelNumbers[this.winningNumberIndex].colour)
           if(this.wheelNumbers[this.winningNumberIndex].colour === this.selectedColours[0]){
             this.playerService.updateCredits(this.wheelColours[0].betOnColour * 2);
           }
