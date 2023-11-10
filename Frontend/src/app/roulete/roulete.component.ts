@@ -2,9 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { wheelNumbersInOrder, wheelNumbersUlti } from '../ultis/ultis';
 import { MenuComponent } from '../menu/menu.component';
 import { PlayerService } from '../services/player.service';
-import { wheelNumbersArray } from '../ultis/ultis';
-import { WheelNumber } from '../ultis/models';
-import { findIndex } from 'rxjs';
+import { wheelNumbersArray, wheelColoursArray } from '../ultis/ultis';
+import { WheelNumber, WheelColour } from '../ultis/models';
+
 
 @Component({
   selector: 'app-roulete',
@@ -18,64 +18,65 @@ export class RouleteComponent implements OnInit {
 
   @ViewChild(MenuComponent) menuComponent!: MenuComponent;
   displayDiv: boolean = false;
+  insufficentFunds:  boolean  = false;
   hoveredItem: any = null;
   winningNumberIndex: number = 0;
   clickedItem: any;
   isSpinning: boolean = false;
   spinIndex: number = 0;
-  wheelNumbers: WheelNumber[] = wheelNumbersArray;
-  lastBetWheelNumbers: WheelNumber[] = wheelNumbersArray;
+  wheelNumbers: WheelNumber[] = structuredClone(wheelNumbersArray);
+  lastBetWheelNumbers: WheelNumber[] = structuredClone(wheelNumbersArray);
   selectedNumbers: any[] = [];
   lastBetNumbers: number[] = [];
+  wheelColours: WheelColour[] = structuredClone(wheelColoursArray);
+  lastBetWheelColours: WheelColour[] = structuredClone(wheelColoursArray);
   selectedColours: any[] = [];
   lastBetColours: any[] = [];
   numsForDisplay: number[] = wheelNumbersInOrder;
 
   playerBet: number = 5;
   totalPlayerBet: number = 0;
-  lastPlayerBet: number = 0;
+  lastTotalPlayerBet: number = 0;
 
   constructor(private playerService: PlayerService) {}
 
   ngOnInit(): void {}
 
   onClickNumber(event: any, index: number) {
-    if (this.selectedNumbers.includes(index)) {
-      this.selectedNumbers = this.selectedNumbers.filter(item => item !== index);
-      this.playerService.updateCredits(this.playerBet);
-      this.totalPlayerBet += -this.playerBet;
-      this.wheelNumbers[this.findBetAmmountFromIndex(index)].betOnNumber += -this.playerBet;
-<<<<<<< HEAD
-=======
-      console.log(this.wheelNumbers);
->>>>>>> DeploymentBranch
-      
-    } else {
-      this.selectedNumbers.push(index);
-      this.wheelNumbers[index].betOnNumber += this.playerBet;
-      this.playerService.updateCredits(-this.playerBet);
-      this.totalPlayerBet += this.playerBet;
-      this.wheelNumbers[this.findBetAmmountFromIndex(index)].betOnNumber += this.playerBet;
-<<<<<<< HEAD
-=======
-      console.log(this.wheelNumbers);
->>>>>>> DeploymentBranch
+    if(this.playerService.player.credits - this.playerBet >= 0){
+      if (this.selectedNumbers.includes(index)) {
+        this.selectedNumbers = this.selectedNumbers.filter(item => item !== index);
+        this.playerService.updateCredits(this.playerBet);
+        this.totalPlayerBet += -this.playerBet;
+        this.wheelNumbers[this.findBetAmmountFromIndex(index)].betOnNumber = 0;
+      }
+
+      else {
+        this.selectedNumbers.push(index);
+        this.playerService.updateCredits(-this.playerBet);
+        this.totalPlayerBet += this.playerBet;
+        this.wheelNumbers[this.findBetAmmountFromIndex(index)].betOnNumber += this.playerBet;
+        this.insufficentFunds = false;
+      }
     }
+    else{
+      this.insufficentFunds = true;
+      window.alert('You have insufficient funds. Please reduce your bet or spin the wheel!');
+    }
+
   }
 
-  onClickColour(event: any, colour: string) {
+  onClickColour(event: any, colour: string, index: number) {
     if (this.selectedColours.includes(colour)) {
       this.selectedColours = this.selectedColours.filter(item => item !== colour);
-<<<<<<< HEAD
-=======
-      console.log(this.selectedColours);
->>>>>>> DeploymentBranch
+      this.wheelColours[index].betOnColour = 0;
       this.playerService.updateCredits(this.playerBet);
       this.totalPlayerBet += -this.playerBet;
     } else {
       this.selectedColours.push(colour);
       this.playerService.updateCredits(-this.playerBet);
       this.totalPlayerBet += this.playerBet;
+      this.wheelColours[index].betOnColour += this.playerBet;
     }
   }
 
@@ -126,6 +127,7 @@ export class RouleteComponent implements OnInit {
   }
 
   onClickWheel(event: any) {
+    console.log(this.selectedColours);
     if (!this.isSpinning) {
       const deg = 360 + (Math.round((Math.random() * 500) / 10) * 10) * (360 / 37);
       event.target.style.setProperty('--rotation', `-${deg}deg`);
@@ -135,13 +137,19 @@ export class RouleteComponent implements OnInit {
 
       setTimeout(() => {
         this.displayDiv = true;
-        console.log(this.wheelNumbers);
         if (this.selectedNumbers.includes(this.wheelNumbers[this.winningNumberIndex].value)) {
           this.playerService.updateCredits(this.wheelNumbers[this.winningNumberIndex].betOnNumber * 36);
-          
+
         }
         if(this.selectedColours.includes(this.wheelNumbers[this.winningNumberIndex].colour)){
-          this.playerService.updateCredits(10);
+          console.log(this.wheelNumbers[this.winningNumberIndex].colour)
+          if(this.wheelNumbers[this.winningNumberIndex].colour === this.selectedColours[0]){
+            this.playerService.updateCredits(this.wheelColours[0].betOnColour * 2);
+          }
+          if(this.wheelNumbers[this.winningNumberIndex].colour === this.selectedColours[1]){
+            this.playerService.updateCredits(this.wheelColours[1].betOnColour * 2);
+          }
+
         }
 
       }, 2000);
@@ -150,24 +158,8 @@ export class RouleteComponent implements OnInit {
     else {
       event.target.removeAttribute('style');
       event.target.classList.remove('active');
-      this.displayDiv = false;
-      this.isSpinning = false;
-      this.lastBetNumbers = this.selectedNumbers;
-      this.lastBetColours = this.selectedColours;
-<<<<<<< HEAD
-      this.lastBetWheelNumbers = this.wheelNumbers;
-      console.log(this.wheelNumbers);
-      console.log("--------------")
-      this.lastPlayerBet = this.playerBet;
-      console.log(this.lastBetWheelNumbers);
-      this.totalPlayerBet = 0;
+      this.saveLastBets();
       this.clearAllBets();
-=======
-      this.selectedNumbers = [];
-      this.selectedColours = [];
-      this. lastPlayerBet = this.playerBet;
-      this.totalPlayerBet = 0;
->>>>>>> DeploymentBranch
     }
   }
 
@@ -177,25 +169,38 @@ export class RouleteComponent implements OnInit {
     return color;
   }
 
+  saveLastBets(){
+    this.lastBetWheelNumbers = structuredClone(this.wheelNumbers);
+    this.lastBetWheelColours = structuredClone(this.wheelColours);
+    this.displayDiv = false;
+    this.isSpinning = false;
+    this.lastBetNumbers = this.selectedNumbers;
+    this.lastBetColours = this.selectedColours;
+    this.lastTotalPlayerBet = this.totalPlayerBet;
+    this.totalPlayerBet = 0;
+  }
+
   replayLastBet() {
     this.clearAllBets();
     this.selectedNumbers = this.lastBetNumbers;
     this.selectedColours = this.lastBetColours;
-    this.wheelNumbers = this.lastBetWheelNumbers;
-    this.playerBet = this.lastPlayerBet;
-<<<<<<< HEAD
+    this.wheelColours = structuredClone(this.lastBetWheelColours);
+    this.wheelNumbers = structuredClone(this.lastBetWheelNumbers);
+    this.totalPlayerBet = this.lastTotalPlayerBet;
     this.playerService.updateCredits(-this.totalPlayerBet);
   }
-  
+
   clearAllBets() {
     this.playerService.updateCredits(this.totalPlayerBet);
     this.selectedNumbers = [];
     this.selectedColours = [];
     this.totalPlayerBet = 0;
-    let i: number = 0;
     this.wheelNumbers.forEach((item) => {
       item.betOnNumber = 0;
-    }); 
+    });
+    this.wheelColours.forEach((item) => {
+      item.betOnColour = 0;
+    });
   }
 
   setPlayerBet(chipValue: number){
@@ -204,28 +209,6 @@ export class RouleteComponent implements OnInit {
 
   findBetAmmountFromIndex(displayNumber: number): number {
     const result = wheelNumbersArray.find((item) => item.value === displayNumber);
-=======
-    this.playerService.updateCredits(-this.playerBet);
-  }
-  
-  clearAllBets() {
-    this.playerService.updateCredits(this.playerBet);
-    this.selectedNumbers = [];
-    this.selectedColours = [];
-    this.playerBet = 0;
-    this.totalPlayerBet = 0;
-  }
-
-  setPlayerBet(chipValue: number){
-    this.playerBet = chipValue;
-  }
-
-  findBetAmmountFromIndex(displayNumber: number): number {
-    const result = wheelNumbersArray.find((item) => item.value === displayNumber);
-    console.log(wheelNumbersArray.indexOf(result!))
->>>>>>> DeploymentBranch
     return wheelNumbersArray.indexOf(result!);
   }
 }
-
-

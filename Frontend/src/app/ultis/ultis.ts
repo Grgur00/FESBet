@@ -1,4 +1,4 @@
-import { WheelNumber } from "./models";
+import { WheelNumber, WheelColour } from "./models";
 
 export const wheelNumbersInOrder: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36];
 export const wheelNumbersUlti: number[] = [0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26];
@@ -43,3 +43,8 @@ export const wheelNumbersArray: WheelNumber[] = [
   { value: 3, colour: "red", betOnNumber: 0 },
   { value: 26, colour: "black", betOnNumber: 0 }
 ];
+
+export const wheelColoursArray: WheelColour[] = [
+  { colour: "red", betOnColour: 0 },
+  { colour: "black", betOnColour: 0 }
+]

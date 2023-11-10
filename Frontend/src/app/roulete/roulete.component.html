@@ -11,20 +11,25 @@
 <div *ngIf="!isSpinning">Last winning number: {{wheelNumbers[this.winningNumberIndex].value}} ({{wheelNumberColor(this.winningNumberIndex) }})</div>
 <div *ngIf="!isSpinning">Your bet {{totalPlayerBet}} credits</div>
 
-<div class="image-row">
-  <div class="image-button" (click)="setPlayerBet(5)">
-    <img src="image1.jpg" alt="Button 1" />
-    5
+<div *ngIf="insufficentFunds" class="error-message">You have insufficient funds to place this bet, please reduce your bet or spin the wheel!</div>
+
+  <div class="chip-image-row">
+    <div class="chip-image-button" (click)="setPlayerBet(5)">
+      <img src="assets/Imgaes/Chips/5 credits chip.png" alt="5" />
+    </div>
+    <div class="chip-image-button" (click)="setPlayerBet(10)">
+      <img src="assets/Imgaes/Chips/10 credits chip.png" alt="10" />
+    </div>
+    <div class="chip-image-button" (click)="setPlayerBet(20)">
+      <img src="assets/Imgaes/Chips/20 credits chip.png" alt="20" />
+    </div>
+    <div class="chip-image-button" (click)="setPlayerBet(50)">
+      <img src="assets/Imgaes/Chips/50 credits chip.png" alt="50" />
+    </div>
+    <div class="chip-image-button" (click)="setPlayerBet(100)">
+      <img src="assets/Imgaes/Chips/100 credits chip.png" alt="100" />
+    </div>
   </div>
-  <div class="image-button" (click)="setPlayerBet(10)">
-    <img src="image2.jpg" alt="Button 2" />
-    10
-  </div>
-  <div class="image-button" (click)="setPlayerBet(20)">
-    <img src="image3.jpg" alt="Button 3" />
-    20
-  </div>
-</div>
 
 <div *ngIf="!isSpinning" class="utility-buttons">
   <button class="utility-button" (click)="replayLastBet()" style="margin-bottom: 5px ;">
@@ -39,18 +44,17 @@
   <button class="red-button grid-item"
           (mouseover)="onHover($event)"
           (mouseleave)="onLeave($event)"
-          (click)="displayDiv ? null : onClickColour($event, 'red')"
+          (click)="displayDiv ? null : onClickColour($event, 'red', 0)"
           [ngClass]="{ unclickable: isSpinning}"
-          [ngStyle]="{'background-color' : getBackgroundColorColoursButton('red')}">Red</button>
+          [ngStyle]="{'background-color' : getBackgroundColorColoursButton('red')}">Red <br> {{wheelColours[0].betOnColour}} </button>
 
   <button class="black-button grid-item"
           (mouseover)="onHover($event)"
           (mouseleave)="onLeave($event)"
-          (click)="isSpinning ? null : onClickColour($event,'black')"
+          (click)="isSpinning ? null : onClickColour($event,'black', 1)"
           [ngStyle]="{'background-color' : getBackgroundColorColoursButton('black')}"
           [ngClass]="{ unclickable: isSpinning }"
-
-          >Black</button>
+          >Black <br> {{wheelColours[1].betOnColour}}</button>
 </div>
 
 
@@ -60,11 +64,11 @@
     (mouseleave)="onLeave($event)"
     *ngFor="let number of numsForDisplay; let i = index"
     (click)="isSpinning ? null : onClickNumber($event, i)"
-    [ngStyle]="{ 'background-color': getBackgroundColorNumber(i) }"
+    [ngStyle]="{ 'background-color': getBackgroundColorNumber(i)}"
     [ngClass]="{ unclickable: isSpinning, firstRowAlone: i === 0 }"
     class="grid-item"
   >
-    {{ number }} <br> {{wheelNumbers[this.findBetAmmountFromIndex(number)].betOnNumber}}
+    {{ number }} <br/> {{wheelNumbers[this.findBetAmmountFromIndex(number)].betOnNumber}}
   </button>
 </div>
 
