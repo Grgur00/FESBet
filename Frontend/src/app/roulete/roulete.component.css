@@ -64,7 +64,6 @@
   color: white;
 }
 
-
 .firstRowAlone {
   grid-column: 1 / span 3;
 }
@@ -98,7 +97,7 @@
   margin-top: 10px;
   padding: auto;
   display: grid;
-  
+
 }
 
 .utility-button{
@@ -106,30 +105,28 @@
   color: white;
 }
 
-.image-row {
+.chip-image-row {
   display: flex;
   justify-content: space-between;
   margin: 20px;
+  border-style: none;
 }
 
-.image-button {
+.chip-image-button {
   cursor: pointer;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
+  border-style: hidden;
 }
 
-.image-button img {
+.chip-image-button img {
   width: 100px;
   height: 100px;
   object-fit: cover;
 }
 
-.button-counter {
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
-  background-color: #ddd;
-  padding: 5px;
-  border-radius: 5px;
+.error-message {
+  color: red;
+  font-size: 18px;
 }

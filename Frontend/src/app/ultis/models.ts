@@ -10,3 +10,8 @@ export interface WheelNumber{
   colour: string;
   betOnNumber: number;
 }
+
+export interface WheelColour{
+  colour: string;
+  betOnColour: number;
+}
