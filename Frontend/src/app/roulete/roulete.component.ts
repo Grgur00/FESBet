@@ -45,6 +45,10 @@ export class RouleteComponent implements OnInit {
       this.playerService.updateCredits(this.playerBet);
       this.totalPlayerBet += -this.playerBet;
       this.wheelNumbers[this.findBetAmmountFromIndex(index)].betOnNumber += -this.playerBet;
+<<<<<<< HEAD
+=======
+      console.log(this.wheelNumbers);
+>>>>>>> DeploymentBranch
       
     } else {
       this.selectedNumbers.push(index);
@@ -52,12 +56,20 @@ export class RouleteComponent implements OnInit {
       this.playerService.updateCredits(-this.playerBet);
       this.totalPlayerBet += this.playerBet;
       this.wheelNumbers[this.findBetAmmountFromIndex(index)].betOnNumber += this.playerBet;
+<<<<<<< HEAD
+=======
+      console.log(this.wheelNumbers);
+>>>>>>> DeploymentBranch
     }
   }
 
   onClickColour(event: any, colour: string) {
     if (this.selectedColours.includes(colour)) {
       this.selectedColours = this.selectedColours.filter(item => item !== colour);
+<<<<<<< HEAD
+=======
+      console.log(this.selectedColours);
+>>>>>>> DeploymentBranch
       this.playerService.updateCredits(this.playerBet);
       this.totalPlayerBet += -this.playerBet;
     } else {
@@ -142,6 +154,7 @@ export class RouleteComponent implements OnInit {
       this.isSpinning = false;
       this.lastBetNumbers = this.selectedNumbers;
       this.lastBetColours = this.selectedColours;
+<<<<<<< HEAD
       this.lastBetWheelNumbers = this.wheelNumbers;
       console.log(this.wheelNumbers);
       console.log("--------------")
@@ -149,6 +162,12 @@ export class RouleteComponent implements OnInit {
       console.log(this.lastBetWheelNumbers);
       this.totalPlayerBet = 0;
       this.clearAllBets();
+=======
+      this.selectedNumbers = [];
+      this.selectedColours = [];
+      this. lastPlayerBet = this.playerBet;
+      this.totalPlayerBet = 0;
+>>>>>>> DeploymentBranch
     }
   }
 
@@ -164,6 +183,7 @@ export class RouleteComponent implements OnInit {
     this.selectedColours = this.lastBetColours;
     this.wheelNumbers = this.lastBetWheelNumbers;
     this.playerBet = this.lastPlayerBet;
+<<<<<<< HEAD
     this.playerService.updateCredits(-this.totalPlayerBet);
   }
   
@@ -184,6 +204,26 @@ export class RouleteComponent implements OnInit {
 
   findBetAmmountFromIndex(displayNumber: number): number {
     const result = wheelNumbersArray.find((item) => item.value === displayNumber);
+=======
+    this.playerService.updateCredits(-this.playerBet);
+  }
+  
+  clearAllBets() {
+    this.playerService.updateCredits(this.playerBet);
+    this.selectedNumbers = [];
+    this.selectedColours = [];
+    this.playerBet = 0;
+    this.totalPlayerBet = 0;
+  }
+
+  setPlayerBet(chipValue: number){
+    this.playerBet = chipValue;
+  }
+
+  findBetAmmountFromIndex(displayNumber: number): number {
+    const result = wheelNumbersArray.find((item) => item.value === displayNumber);
+    console.log(wheelNumbersArray.indexOf(result!))
+>>>>>>> DeploymentBranch
     return wheelNumbersArray.indexOf(result!);
   }
 }
