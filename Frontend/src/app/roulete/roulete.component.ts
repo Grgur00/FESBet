@@ -141,14 +141,9 @@ export class RouleteComponent implements OnInit {
           this.playerService.updateCredits(this.wheelNumbers[this.winningNumberIndex].betOnNumber * 36);
 
         }
-        if(this.selectedColours.includes(this.wheelNumbers[this.winningNumberIndex].colour)){
-          if(this.wheelNumbers[this.winningNumberIndex].colour === this.selectedColours[0]){
-            this.playerService.updateCredits(this.wheelColours[0].betOnColour * 2);
-          }
-          if(this.wheelNumbers[this.winningNumberIndex].colour === this.selectedColours[1]){
-            this.playerService.updateCredits(this.wheelColours[1].betOnColour * 2);
-          }
-
+        if (this.selectedColours.includes(this.wheelNumbers[this.winningNumberIndex].colour)) {
+          const colorIndex = this.wheelColours.findIndex((c) => c.colour === this.wheelNumbers[this.winningNumberIndex].colour);
+          this.playerService.updateCredits(this.wheelColours[colorIndex].betOnColour * 2);
         }
 
       }, 2000);
