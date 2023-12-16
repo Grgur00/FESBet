@@ -15,3 +15,9 @@ export interface WheelColour{
   colour: string;
   betOnColour: number;
 }
+
+export interface Card{
+  id: number;
+  value: string;
+  symbol: string
+}

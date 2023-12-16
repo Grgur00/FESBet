@@ -1,7 +1,16 @@
 .roulette-img {
   -webkit-transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out; /* Standard syntax for transition */
+  -webkit-tap-highlight-color: transparent;
+
 }
+div{
+  -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
+}
+*:focus {
+  outline: 0;
+  outline: none;
+  }
 
 .roulette-img.active {
   -webkit-transform: rotate(var(--rotation, 660deg));
@@ -129,4 +138,10 @@
 .error-message {
   color: red;
   font-size: 18px;
+}
+
+.img {
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  outline: none;
 }

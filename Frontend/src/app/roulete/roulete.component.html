@@ -2,7 +2,7 @@
 
 <div style="position: relative; display: inline-block; align-items: center;">
   <a href="#" (click)="spinRoulette($event)">
-    <img #rouletteImage (click)="onClickWheel($event)" class="roulette-img" width="400" height="400" src="assets/Imgaes/imageedit_4_4588350095copy.png">
+    <img #rouletteImage (click)="onClickWheel($event)" class="roulette-img" width="400" height="400" src="assets/Images/imageedit_4_4588350095copy.png">
   </a>
   <div class="arrow"></div>
 </div>
@@ -14,20 +14,20 @@
 <div *ngIf="insufficentFunds" class="error-message">You have insufficient funds to place this bet, please reduce your bet or spin the wheel!</div>
 
   <div class="chip-image-row">
-    <div class="chip-image-button" (click)="setPlayerBet(5)">
-      <img src="assets/Imgaes/Chips/5 credits chip.png" alt="5"/>
+    <div class="chip-image-button" (click)="setPlayerBet(5)"  [ngStyle]="{'transform': getChipSize(5)}">
+      <img src="assets/Images/Chips/5 credits chip.png" alt="5"/>
     </div>
-    <div class="chip-image-button" (click)="setPlayerBet(10)">
-      <img src="assets/Imgaes/Chips/10 credits chip.png" alt="10"/>
+    <div class="chip-image-button" (click)="setPlayerBet(10)"  [ngStyle]="{'transform': getChipSize(10)}">
+      <img src="assets/Images/Chips/10 credits chip.png" alt="10"/>
     </div>
-    <div class="chip-image-button" (click)="setPlayerBet(20)">
-      <img src="assets/Imgaes/Chips/20 credits chip.png" alt="20"/>
+    <div class="chip-image-button" (click)="setPlayerBet(20)"  [ngStyle]="{'transform': getChipSize(20)}">
+      <img src="assets/Images/Chips/20 credits chip.png" alt="20"/>
     </div>
-    <div class="chip-image-button" (click)="setPlayerBet(50)">
-      <img src="assets/Imgaes/Chips/50 credits chip.png" alt="50"/>
+    <div class="chip-image-button" (click)="setPlayerBet(50)"  [ngStyle]="{'transform': getChipSize(50)}">
+      <img src="assets/Images/Chips/50 credits chip.png" alt="50"/>
     </div>
-    <div class="chip-image-button" (click)="setPlayerBet(100)">
-      <img src="assets/Imgaes/Chips/100 credits chip.png" alt="100"/>
+    <div class="chip-image-button" (click)="setPlayerBet(100)"  [ngStyle]="{'transform': getChipSize(100)}">
+      <img src="assets/Images/Chips/100 credits chip.png" alt="100"/>
     </div>
   </div>
 

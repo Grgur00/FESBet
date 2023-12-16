@@ -1,0 +1,43 @@
+<div>
+  Dealer Cards:
+  <div style="display: flex; flex-wrap: wrap;">
+    <div *ngFor="let card of cardListDealer; let i = index" style="margin-right: 10px; margin-bottom: 10px;">
+      <img *ngIf="i === 0 && !playerHold" [src]="'assets/Images/DeckCards/' + card.symbol + '_' + card.value + '.png'" alt="{{ card.value }}">
+      <img *ngIf="playerHold" [src]="'assets/Images/DeckCards/' + card.symbol + '_' + card.value + '.png'" alt="{{ card.value }}">
+    </div>
+  </div>
+</div>
+
+<div>
+  Player Cards:
+  <div style="display: flex; flex-wrap: wrap;">
+    <div *ngFor="let card of cardListPlayer" style="margin-right: 10px; margin-bottom: 10px;">
+      <img [src]="'assets/Images/DeckCards/' + card.symbol + '_' + card.value + '.png'" alt="{{ card.value }}">
+    </div>
+  </div>
+  <button *ngIf="!playerIsBust && !playerHold" style="margin-bottom: 10px;" class="btn btn-primary" (click)="playerLogic(cardListPlayer,cardListDealer)">Draw Card</button>
+  {{playerHandValue}}
+</div>
+
+<div *ngIf="playerIsBust">Bust</div>
+
+<div class="chip-image-row">
+  <div class="chip-image-button" (click)="setPlayerBet(5)"  [ngStyle]="{'transform': getChipSize(5)}">
+    <img src="assets/Images/Chips/5 credits chip.png" alt="5"/>
+  </div>
+  <div class="chip-image-button" (click)="setPlayerBet(10)"  [ngStyle]="{'transform': getChipSize(10)}">
+    <img src="assets/Images/Chips/10 credits chip.png" alt="10"/>
+  </div>
+  <div class="chip-image-button" (click)="setPlayerBet(20)"  [ngStyle]="{'transform': getChipSize(20)}">
+    <img src="assets/Images/Chips/20 credits chip.png" alt="20"/>
+  </div>
+  <div class="chip-image-button" (click)="setPlayerBet(50)"  [ngStyle]="{'transform': getChipSize(50)}">
+    <img src="assets/Images/Chips/50 credits chip.png" alt="50"/>
+  </div>
+  <div class="chip-image-button" (click)="setPlayerBet(100)"  [ngStyle]="{'transform': getChipSize(100)}">
+    <img src="assets/Images/Chips/100 credits chip.png" alt="100"/>
+  </div>
+</div>
+<div>{{message}}</div>
+<button *ngIf="playerIsBust || playerHold" (click)="clearAllCards()">Try Again</button>
+<button *ngIf="!playerIsBust" (click)="holdBet()"> Hold</button>
