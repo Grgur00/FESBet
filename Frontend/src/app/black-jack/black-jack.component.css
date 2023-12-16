@@ -1,0 +1,28 @@
+.chip-image-row {
+  justify-content: space-between;
+  margin: 20px;
+  border-style: none;
+}
+
+.chip-image-button {
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  border-style: hidden;
+  display: inline-block;
+}
+
+.chip-image-button img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+div{
+  -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
+}
+*:focus {
+  outline: 0;
+  outline: none;
+  }

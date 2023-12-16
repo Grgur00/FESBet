@@ -33,6 +33,7 @@ export class RouleteComponent implements OnInit {
   selectedColours: any[] = [];
   lastBetColours: any[] = [];
   numsForDisplay: number[] = wheelNumbersInOrder;
+  selectedChip: number = 5;
 
   playerBet: number = 5;
   totalPlayerBet: number = 0;
@@ -42,16 +43,27 @@ export class RouleteComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onClickNumber(event: any, index: number) {
+  doesUserHaveSufficientCreditsToPlaceABet(): boolean{
     if(this.playerService.player.credits - this.playerBet >= 0){
-      if (this.selectedNumbers.includes(index)) {
+      return true;
+    }
+    else{
+      this.insufficentFunds = true;
+      window.alert('You have insufficient funds. Please reduce your bet or spin the wheel!');
+      return false;
+    }
+  }
+
+  onClickNumber(event: any, index: number) {
+    if(this.doesUserHaveSufficientCreditsToPlaceABet()){
+      if (this.selectedNumbers.includes(index)) { //selected number is clicked
         this.selectedNumbers = this.selectedNumbers.filter(item => item !== index);
         this.playerService.updateCredits(this.playerBet);
         this.totalPlayerBet += -this.playerBet;
         this.wheelNumbers[this.findBetAmmountFromIndex(index)].betOnNumber = 0;
       }
 
-      else {
+      else {  //not selected number is clicked
         this.selectedNumbers.push(index);
         this.playerService.updateCredits(-this.playerBet);
         this.totalPlayerBet += this.playerBet;
@@ -59,25 +71,24 @@ export class RouleteComponent implements OnInit {
         this.insufficentFunds = false;
       }
     }
-    else{
-      this.insufficentFunds = true;
-      window.alert('You have insufficient funds. Please reduce your bet or spin the wheel!');
-    }
 
   }
 
   onClickColour(event: any, colour: string, index: number) {
-    if (this.selectedColours.includes(colour)) {
-      this.selectedColours = this.selectedColours.filter(item => item !== colour);
-      this.wheelColours[index].betOnColour = 0;
-      this.playerService.updateCredits(this.playerBet);
-      this.totalPlayerBet += -this.playerBet;
-    } else {
-      this.selectedColours.push(colour);
-      this.playerService.updateCredits(-this.playerBet);
-      this.totalPlayerBet += this.playerBet;
-      this.wheelColours[index].betOnColour += this.playerBet;
+    if(this.doesUserHaveSufficientCreditsToPlaceABet()){
+      if (this.selectedColours.includes(colour)) {
+        this.selectedColours = this.selectedColours.filter(item => item !== colour);
+        this.wheelColours[index].betOnColour = 0;
+        this.playerService.updateCredits(this.playerBet);
+        this.totalPlayerBet += -this.playerBet;
+      } else {
+        this.selectedColours.push(colour);
+        this.playerService.updateCredits(-this.playerBet);
+        this.totalPlayerBet += this.playerBet;
+        this.wheelColours[index].betOnColour += this.playerBet;
+      }
     }
+
   }
 
   getBackgroundColorNumber(index: number) {
@@ -197,12 +208,17 @@ export class RouleteComponent implements OnInit {
     });
   }
 
-  setPlayerBet(chipValue: number){
-    this.playerBet = chipValue;
-  }
-
   findBetAmmountFromIndex(displayNumber: number): number {
     const result = wheelNumbersArray.find((item) => item.value === displayNumber);
     return wheelNumbersArray.indexOf(result!);
+  }
+
+  setPlayerBet(chipValue: number) {
+    this.playerBet = chipValue;
+    this.selectedChip = chipValue;
+  }
+
+  getChipSize(chipValue: number): string {
+    return this.selectedChip === chipValue ? 'scale(1.25)' : 'scale(1)';
   }
 }
