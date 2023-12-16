@@ -3,11 +3,21 @@
   <div style="display: flex; flex-wrap: wrap;">
     <div *ngFor="let card of cardListDealer; let i = index" style="margin-right: 10px; margin-bottom: 10px;">
       <img *ngIf="i === 0 && !playerHold" [src]="'assets/Images/DeckCards/' + card.symbol + '_' + card.value + '.png'" alt="{{ card.value }}">
+<<<<<<< HEAD
+=======
+      {{i}}
+>>>>>>> 2581eb0876108d935f517a9187513cb844e98822
       <img *ngIf="playerHold" [src]="'assets/Images/DeckCards/' + card.symbol + '_' + card.value + '.png'" alt="{{ card.value }}">
     </div>
   </div>
 </div>
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 2581eb0876108d935f517a9187513cb844e98822
 <div>
   Player Cards:
   <div style="display: flex; flex-wrap: wrap;">
@@ -39,5 +49,9 @@
   </div>
 </div>
 <div>{{message}}</div>
+<<<<<<< HEAD
 <button *ngIf="playerIsBust || playerHold" (click)="clearAllCards()">Try Again</button>
+=======
+<button *ngIf="playerIsBust && playerHold" (click)="clearAllCards()">Try Again</button>
+>>>>>>> 2581eb0876108d935f517a9187513cb844e98822
 <button *ngIf="!playerIsBust" (click)="holdBet()"> Hold</button>
