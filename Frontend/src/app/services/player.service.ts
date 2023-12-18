@@ -15,7 +15,10 @@ export class PlayerService {
 
   updateCredits(amount: number): void {
     this.player.credits += amount;
-      }
+  }
 
+  createUser(newUser: IPlayer){
+    this.player = newUser;
+  }
   constructor() { }
 }

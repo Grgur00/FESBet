@@ -19,7 +19,22 @@
   border-radius: 12px;
 }
 
-.menu-button:hover {
+.menu-balance {
+  background-color: #5e4caf;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+.menu-balance:hover, .menu-button:hover {
   background-color: white;
   color: black;
   border: 2px solid #4CAF50;

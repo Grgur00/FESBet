@@ -17,7 +17,7 @@
       <strong>Your Score:</strong> {{ playerHandValue }}
     </div>
     <div *ngIf="playerHold || playerIsBust">
-      <strong>{{ message }} <div *ngIf="playerIsBust">Bust</div></strong>
+      <strong>{{ winLoseMessage }} <div *ngIf="playerIsBust">Bust</div></strong>
     </div>
 
     Player Cards:
@@ -29,7 +29,10 @@
   </div>
 </div>
 
-<button *ngIf="!playerIsBust && !playerHold" class="btn" (click)="playerLogic(cardListPlayer, cardListDealer)">Draw Card</button>
+<button *ngIf="!playerIsBust && !playerHold" class="btn" (click)="playerLogic(cardListPlayer, cardListDealer)">
+  <div *ngIf="!gameInProgress">Draw a Card</div>
+  <div *ngIf="gameInProgress">Hit</div>
+</button>
 <button *ngIf="!playerIsBust && gameInProgress" class="btn" (click)="holdBet()"> Hold</button>
 <button *ngIf="playerIsBust || playerHold" class="btn" (click)="clearAllCards()">Try Again</button>
 

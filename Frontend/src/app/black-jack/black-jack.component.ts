@@ -15,7 +15,7 @@ export class BlackJackComponent {
   cardListDealer: Card[] = [];
   cardListPlayer: Card[] = [];
   playingDeck: Card[] = structuredClone(Deck);
-  delerIsBust: boolean = false;
+  dealerIsBust: boolean = false;
   playerIsBust: boolean = false;
   playerBet: number = 5;
   playerHold: boolean = false;
@@ -23,8 +23,9 @@ export class BlackJackComponent {
   dealerHandValue: number = 0;
   showDealerFirstCard: boolean = true;
   selectedChip: number = 5;
-  message: string = "";
+  winLoseMessage: string = "";
   gameInProgress: boolean = false;
+
 
   constructor(private playerService: PlayerService) {}
 
@@ -49,7 +50,7 @@ export class BlackJackComponent {
     this.cardListPlayer = [];
     this.playingDeck = structuredClone(Deck);
     this.playerIsBust = false;
-    this.delerIsBust = false;
+    this.dealerIsBust = false;
     this.showDealerFirstCard = true;
     this.playerHold = false;
     this.gameInProgress = false;
@@ -57,21 +58,23 @@ export class BlackJackComponent {
 
   holdBet() {
     this.playerHold = true;
+    this.gameInProgress = false;
     if (this.playerIsBust) {
-      this.message = "You lost";
+      this.winLoseMessage = "You lost";
       return;
     }
-    else if (this.playerHandValue > this.dealerHandValue || (this.delerIsBust && !this.playerIsBust)) {
+    else if (this.playerHandValue > this.dealerHandValue || (this.dealerIsBust && !this.playerIsBust)) {
       this.playerService.updateCredits(2 * this.playerBet);
-      this.message = "You won";
+      this.winLoseMessage = "You won";
       return;
     }
     else if (this.playerHandValue < this.dealerHandValue || this.playerIsBust) {
-      this.message = "You lost";
+      this.winLoseMessage = "You lost";
       return;
     }
-    else {
-      this.message = "You lost";
+    else if(this.playerHandValue == this.dealerHandValue && !this.playerIsBust) {
+      this.playerService.updateCredits(this.playerBet);
+      this.winLoseMessage = "Draw";
       return;
     }
 
@@ -97,20 +100,20 @@ export class BlackJackComponent {
   }
   dealerLogic(cardList: Card[]){
     let dealerHand = 0;
-    while(!this.delerIsBust && dealerHand < 17){
-      console.log(this.playingDeck)
+    while(!this.dealerIsBust && dealerHand < 17){
       this.drawCard(cardList);
       dealerHand = this.calculateTotalValue(cardList);
       if(dealerHand > 21){
-        this.delerIsBust = true;
+        this.dealerIsBust = true;
         break;
       }
     }
+    dealerHand = this.calculateTotalValue(cardList);
     this.showDealerFirstCard = false;
     this.dealerHandValue = dealerHand;
   }
 
-    calculateTotalValue(cardList: Card[]): number {
+  calculateTotalValue(cardList: Card[]): number {
     return this.checkForAces(cardList.reduce((total, card) => {
       if (card.value === '1' && total + 11 < 21) {
         this.numberOfAces++;
