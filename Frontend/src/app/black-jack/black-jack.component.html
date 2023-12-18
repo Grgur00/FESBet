@@ -1,6 +1,6 @@
 <div class="play-area">
   <div class="dealer-section">
-    <div>Dealer Cards:</div>
+    <div *ngIf="gameInProgress">Dealer Cards:</div>
     <div class="card-container">
       <div class="card" *ngFor="let card of cardListDealer; let i = index" style="margin-right: 10px; margin-bottom: 10px;">
         <img *ngIf="i === 0 && !playerHold" [src]="'assets/Images/DeckCards/' + card.symbol + '_' + card.value + '.png'" alt="{{ card.value }}">
@@ -17,7 +17,7 @@
       <strong>Your Score:</strong> {{ playerHandValue }}
     </div>
     <div *ngIf="playerHold || playerIsBust">
-      <strong>Message:</strong> {{ message }}
+      <strong>{{ message }} <div *ngIf="playerIsBust">Bust</div></strong>
     </div>
 
     Player Cards:
@@ -32,8 +32,6 @@
 <button *ngIf="!playerIsBust && !playerHold" class="btn" (click)="playerLogic(cardListPlayer, cardListDealer)">Draw Card</button>
 <button *ngIf="!playerIsBust && gameInProgress" class="btn" (click)="holdBet()"> Hold</button>
 <button *ngIf="playerIsBust || playerHold" class="btn" (click)="clearAllCards()">Try Again</button>
-
-<div *ngIf="playerIsBust">Bust</div>
 
 <div class="chip-image-row">
 <div *ngIf="gameInProgress == false || playerBet == 5" class="chip-image-button" (click)="setPlayerBet(5)"  [ngStyle]="{'transform': getChipSize(5)}">

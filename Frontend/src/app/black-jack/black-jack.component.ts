@@ -58,20 +58,20 @@ export class BlackJackComponent {
   holdBet() {
     this.playerHold = true;
     if (this.playerIsBust) {
-      this.message = "You lost"
+      this.message = "You lost";
       return;
     }
     else if (this.playerHandValue > this.dealerHandValue || (this.delerIsBust && !this.playerIsBust)) {
       this.playerService.updateCredits(2 * this.playerBet);
-      this.message = "You won"
+      this.message = "You won";
       return;
     }
     else if (this.playerHandValue < this.dealerHandValue || this.playerIsBust) {
-      this.message = "You lost"
+      this.message = "You lost";
       return;
     }
     else {
-      this.message = "You lost"
+      this.message = "You lost";
       return;
     }
 
