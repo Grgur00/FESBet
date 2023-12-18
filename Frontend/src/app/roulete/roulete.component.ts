@@ -34,7 +34,6 @@ export class RouleteComponent implements OnInit {
   lastBetColours: any[] = [];
   numsForDisplay: number[] = wheelNumbersInOrder;
   selectedChip: number = 5;
-
   playerBet: number = 5;
   totalPlayerBet: number = 0;
   lastTotalPlayerBet: number = 0;
