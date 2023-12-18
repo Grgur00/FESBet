@@ -24,6 +24,7 @@ export class BlackJackComponent {
   showDealerFirstCard: boolean = true;
   selectedChip: number = 5;
   message: string = "";
+  gameInProgress: boolean = false;
 
   constructor(private playerService: PlayerService) {}
 
@@ -48,51 +49,45 @@ export class BlackJackComponent {
     this.cardListPlayer = [];
     this.playingDeck = structuredClone(Deck);
     this.playerIsBust = false;
+    this.delerIsBust = false;
     this.showDealerFirstCard = true;
     this.playerHold = false;
+    this.gameInProgress = false;
   }
 
   holdBet() {
     this.playerHold = true;
-    console.log("Dealer hand:");
-    console.log(this.dealerHandValue);
-    console.log("Player hand:");
-    console.log(this.playerHandValue);
-
-    console.log(this.playerBet)
-
     if (this.playerIsBust) {
-      this.message = "you lost"
-      console.log("you lost");
+      this.message = "You lost"
       return;
-    } else if (this.playerHandValue > this.dealerHandValue || (this.delerIsBust && !this.playerIsBust)) {
+    }
+    else if (this.playerHandValue > this.dealerHandValue || (this.delerIsBust && !this.playerIsBust)) {
       this.playerService.updateCredits(2 * this.playerBet);
-      this.message = "you won"
-      console.log("you won");
+      this.message = "You won"
       return;
-    } else if (this.playerHandValue < this.dealerHandValue || this.playerIsBust) {
-      this.message = "you lost"
-      console.log("you lost");
+    }
+    else if (this.playerHandValue < this.dealerHandValue || this.playerIsBust) {
+      this.message = "You lost"
       return;
-    } else {
-      this.message = "you lost"
-      console.log("you lost");
+    }
+    else {
+      this.message = "You lost"
       return;
     }
 
   }
 
-
   playerLogic(cardListPlayer: Card[], cardListDealer: Card[]){
     let handValue!: number;
     if(this.showDealerFirstCard){
+      this.gameInProgress = true;
       this.dealerLogic(cardListDealer);
       this.playerService.updateCredits(-this.playerBet);
+      this.numberOfAces = 0;
     }
     if(!this.playerIsBust && !this.playerHold){
       this.drawCard(cardListPlayer)
       handValue = this.calculateTotalValue(cardListPlayer);
-      handValue = handValue + this.checkForAces(handValue)
       if(handValue > 21){
         this.playerIsBust = true;
         this.numberOfAces = 0;
@@ -106,9 +101,9 @@ export class BlackJackComponent {
       console.log(this.playingDeck)
       this.drawCard(cardList);
       dealerHand = this.calculateTotalValue(cardList);
-      dealerHand = dealerHand + this.checkForAces(dealerHand);
       if(dealerHand > 21){
         this.delerIsBust = true;
+        break;
       }
     }
     this.showDealerFirstCard = false;
@@ -116,11 +111,8 @@ export class BlackJackComponent {
   }
 
     calculateTotalValue(cardList: Card[]): number {
-    // Example: Implement your own logic to calculate the total value of cards
-    // For simplicity, this example assumes that 'J', 'Q', 'K' have a value of 10,
-    // and 'A' has a value of 11 (considering the best scenario for the player).
-    return cardList.reduce((total, card) => {
-      if (card.value === '1' && total + 11 <= 21) {
+    return this.checkForAces(cardList.reduce((total, card) => {
+      if (card.value === '1' && total + 11 < 21) {
         this.numberOfAces++;
         return total + 11;
       }
@@ -130,19 +122,15 @@ export class BlackJackComponent {
       else {
         return total + parseInt(card.value, 10);
       }
-    }, 0);
+    }, 0));
   }
 
-  checkForAces(handValue : number): number{
-    if(handValue > 21 && this.numberOfAces === 0){
-      return 0;
-    }
-    if(handValue > 21){
-      handValue = handValue - 11;
+  checkForAces(handValue: number): number {
+    while (handValue > 21 && this.numberOfAces > 0) {
+      handValue = handValue - 10;
       this.numberOfAces--;
-      return handValue
     }
-    return 0;
+    return handValue;
   }
 
   setPlayerBet(chipValue: number) {
