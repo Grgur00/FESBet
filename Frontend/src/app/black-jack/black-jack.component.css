@@ -27,8 +27,6 @@ div{
   outline: none;
   }
 
-
-
 .play-area{
   display: flex;
   flex-direction: column;
@@ -36,18 +34,17 @@ div{
 }
 
 .dealer-section, .player-section {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .card-container {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .card {
   margin-right: 10px;
-  margin-bottom: 10px;
   display: inline-block !important;
   max-width: 12% !important;
 }
@@ -55,7 +52,7 @@ div{
 
 
 .btn {
-  margin: 10px;
+  margin-right: 20px;
   background-color: #3498db;
   color: #fff;
   border: none;

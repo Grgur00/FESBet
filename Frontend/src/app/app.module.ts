@@ -9,8 +9,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { RouleteComponent } from './roulete/roulete.component';
 import { PlayerComponent } from './player/player.component';
 import { BlackJackComponent } from './black-jack/black-jack.component';
+import { HomePageComponent } from './home-page/home-page.component';
 
 const appRoutes : Routes = [
+  {path: '', component: HomePageComponent},
   {path: 'Roulete', component: RouleteComponent},
   {path: 'Player', component: PlayerComponent},
   {path: 'BlackJack', component: BlackJackComponent}
@@ -21,7 +23,8 @@ const appRoutes : Routes = [
     MenuComponent,
     RouleteComponent,
     PlayerComponent,
-    BlackJackComponent
+    BlackJackComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule,
