@@ -106,3 +106,13 @@ export const Deck: Card[] = [
   { id: 51, value: 'king', symbol: 'spade' },
   { id: 52, value: '1', symbol: 'spade' },
 ];
+
+export function doesUserHaveSufficientCreditsToPlaceABet(credits: number, playerBet: number): boolean{
+  if(credits - playerBet >= 0){
+    return true;
+  }
+  else{
+    window.alert('You have insufficient funds. Please reduce your bet or spin the wheel!');
+    return false;
+  }
+}

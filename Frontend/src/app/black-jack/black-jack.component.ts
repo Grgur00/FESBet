@@ -15,6 +15,7 @@ export class BlackJackComponent {
   cardListDealer: Card[] = [];
   cardListPlayer: Card[] = [];
   playingDeck: Card[] = structuredClone(Deck);
+  //playingDeck: Card[] = [{ id: 8, value: '9', symbol: 'heart' },{ id: 13, value: '1', symbol: 'heart' },{ id: 3, value: '4', symbol: 'heart' },{ id: 1, value: '2', symbol: 'heart' },{ id: 6, value: '7', symbol: 'heart' },]
   dealerIsBust: boolean = false;
   playerIsBust: boolean = false;
   playerBet: number = 5;
@@ -49,6 +50,7 @@ export class BlackJackComponent {
     this.dealerHandValue = 0;
     this.cardListPlayer = [];
     this.playingDeck = structuredClone(Deck);
+    //this.playingDeck = [{ id: 8, value: '9', symbol: 'heart' },{ id: 13, value: '1', symbol: 'heart' },{ id: 3, value: '4', symbol: 'heart' },{ id: 1, value: '2', symbol: 'heart' },{ id: 6, value: '7', symbol: 'heart' },];
     this.playerIsBust = false;
     this.dealerIsBust = false;
     this.showDealerFirstCard = true;
@@ -114,25 +116,26 @@ export class BlackJackComponent {
   }
 
   calculateTotalValue(cardList: Card[]): number {
-    return this.checkForAces(cardList.reduce((total, card) => {
-      if (card.value === '1' && total + 11 < 21) {
-        this.numberOfAces++;
-        return total + 11;
-      }
-      else if (['king', 'queen', 'jack'].includes(card.value)) {
-        return total + 10;
-      }
-      else {
-        return total + parseInt(card.value, 10);
-      }
-    }, 0));
-  }
+    let handValue = 0;
+    let numberOfAces = 0;
 
-  checkForAces(handValue: number): number {
-    while (handValue > 21 && this.numberOfAces > 0) {
-      handValue = handValue - 10;
-      this.numberOfAces--;
+    for (const card of cardList) {
+      if (card.value === '1') {
+        numberOfAces++;
+        handValue += 11;
+      } else if (['king', 'queen', 'jack'].includes(card.value)) {
+        handValue += 10;
+      } else {
+        handValue += parseInt(card.value, 10);
+      }
     }
+
+    while (handValue > 21 && numberOfAces > 0) {
+      handValue -= 10;
+      numberOfAces--;
+    }
+
+    this.numberOfAces = numberOfAces;
     return handValue;
   }
 

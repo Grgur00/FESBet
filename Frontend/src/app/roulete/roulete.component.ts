@@ -4,7 +4,7 @@ import { MenuComponent } from '../menu/menu.component';
 import { PlayerService } from '../services/player.service';
 import { wheelNumbersArray, wheelColoursArray } from '../ultis/ultis';
 import { WheelNumber, WheelColour } from '../ultis/models';
-
+import { doesUserHaveSufficientCreditsToPlaceABet } from '../ultis/ultis';
 
 @Component({
   selector: 'app-roulete',
@@ -18,7 +18,7 @@ export class RouleteComponent implements OnInit {
 
   @ViewChild(MenuComponent) menuComponent!: MenuComponent;
   displayDiv: boolean = false;
-  insufficentFunds:  boolean  = false;
+  sufficentFunds:  boolean  = true;
   hoveredItem: any = null;
   winningNumberIndex: number = 0;
   clickedItem: any;
@@ -42,24 +42,17 @@ export class RouleteComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  doesUserHaveSufficientCreditsToPlaceABet(): boolean{
-    if(this.playerService.player.credits - this.playerBet >= 0){
-      return true;
-    }
-    else{
-      this.insufficentFunds = true;
-      window.alert('You have insufficient funds. Please reduce your bet or spin the wheel!');
-      return false;
-    }
-  }
+
 
   onClickNumber(event: any, index: number) {
-    if(this.doesUserHaveSufficientCreditsToPlaceABet()){
+    this.sufficentFunds = doesUserHaveSufficientCreditsToPlaceABet(this.playerService.player.credits, this.playerBet);
+    if(this.sufficentFunds){
       if (this.selectedNumbers.includes(index)) { //selected number is clicked
         this.selectedNumbers = this.selectedNumbers.filter(item => item !== index);
         this.playerService.updateCredits(this.playerBet);
         this.totalPlayerBet += -this.playerBet;
         this.wheelNumbers[this.findBetAmmountFromIndex(index)].betOnNumber = 0;
+        this.sufficentFunds =  true;
       }
 
       else {  //not selected number is clicked
@@ -67,20 +60,22 @@ export class RouleteComponent implements OnInit {
         this.playerService.updateCredits(-this.playerBet);
         this.totalPlayerBet += this.playerBet;
         this.wheelNumbers[this.findBetAmmountFromIndex(index)].betOnNumber += this.playerBet;
-        this.insufficentFunds = false;
+        this.sufficentFunds = true;
       }
     }
 
   }
 
   onClickColour(event: any, colour: string, index: number) {
-    if(this.doesUserHaveSufficientCreditsToPlaceABet()){
+    this.sufficentFunds = doesUserHaveSufficientCreditsToPlaceABet(this.playerService.player.credits, this.playerBet);
+    if(this.sufficentFunds){
       if (this.selectedColours.includes(colour)) {
         this.selectedColours = this.selectedColours.filter(item => item !== colour);
         this.wheelColours[index].betOnColour = 0;
         this.playerService.updateCredits(this.playerBet);
         this.totalPlayerBet += -this.playerBet;
-      } else {
+      }
+      else {
         this.selectedColours.push(colour);
         this.playerService.updateCredits(-this.playerBet);
         this.totalPlayerBet += this.playerBet;

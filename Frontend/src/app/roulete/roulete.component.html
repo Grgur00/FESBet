@@ -11,7 +11,7 @@
 <div *ngIf="!isSpinning">Last winning number: {{wheelNumbers[this.winningNumberIndex].value}} ({{wheelNumberColor(this.winningNumberIndex) }})</div>
 <div *ngIf="!isSpinning">Your bet {{totalPlayerBet}} credits</div>
 
-<div *ngIf="insufficentFunds" class="error-message">You have insufficient funds to place this bet, please reduce your bet or spin the wheel!</div>
+<div *ngIf="!sufficentFunds" class="error-message">You have insufficient funds to place this bet, please reduce your bet or spin the wheel!</div>
 
   <div class="chip-image-row">
     <div class="chip-image-button" (click)="setPlayerBet(5)"  [ngStyle]="{'transform': getChipSize(5)}">
