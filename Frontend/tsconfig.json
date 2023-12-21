@@ -19,15 +19,20 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
+    "paths": {
+      "@angular/*": [ "./node_modules/@angular/*"]
+    },
     "lib": [
       "ES2022",
       "dom"
     ]
+
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
+    "noUnusedLocals": false
   }
 }

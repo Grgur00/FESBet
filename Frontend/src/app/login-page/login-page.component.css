@@ -1,0 +1,50 @@
+.container-fluid {
+  background-color: #fff;
+  padding: 20px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 400px; /* Adjust the maximum width as needed */
+}
+
+.card-body {
+  padding: 20px;
+  text-align: center;
+}
+
+.form-label {
+  margin-bottom: 5px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.btn {
+  background-color: #007bff;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #0069d9;
+}
+
+.router-link-active {
+  background-color: #0086ff;
+}
