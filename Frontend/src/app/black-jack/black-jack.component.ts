@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Card} from '../ultis/models';
-import { Deck } from '../ultis/ultis';
+import { Deck, doesUserHaveSufficientCreditsToPlaceABet } from '../ultis/ultis';
 import { PlayerService } from '../services/player.service';
 
 @Component({
@@ -84,22 +84,25 @@ export class BlackJackComponent {
 
   playerLogic(cardListPlayer: Card[], cardListDealer: Card[]){
     let handValue!: number;
-    if(this.showDealerFirstCard){
-      this.gameInProgress = true;
-      this.dealerLogic(cardListDealer);
-      this.playerService.updateCredits(-this.playerBet);
-      this.numberOfAces = 0;
-    }
-    if(!this.playerIsBust && !this.playerHold){
-      this.drawCard(cardListPlayer)
-      handValue = this.calculateTotalValue(cardListPlayer);
-      if(handValue > 21){
-        this.playerIsBust = true;
+    if(doesUserHaveSufficientCreditsToPlaceABet(this.playerService.player.credits, this.playerBet)){
+      if(this.showDealerFirstCard){
+        this.gameInProgress = true;
+        this.dealerLogic(cardListDealer);
+        this.playerService.updateCredits(-this.playerBet);
         this.numberOfAces = 0;
       }
+      if(!this.playerIsBust && !this.playerHold){
+        this.drawCard(cardListPlayer)
+        handValue = this.calculateTotalValue(cardListPlayer);
+        if(handValue > 21){
+          this.playerIsBust = true;
+          this.numberOfAces = 0;
+        }
+      }
+      this.playerHandValue = handValue;
     }
-    this.playerHandValue = handValue;
   }
+
   dealerLogic(cardList: Card[]){
     let dealerHand = 0;
     while(!this.dealerIsBust && dealerHand < 17){

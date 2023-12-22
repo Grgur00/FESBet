@@ -112,7 +112,7 @@ export function doesUserHaveSufficientCreditsToPlaceABet(credits: number, player
     return true;
   }
   else{
-    window.alert('You have insufficient funds. Please reduce your bet or spin the wheel!');
+    window.alert('You have insufficient funds. Please reduce your bet or add more credits');
     return false;
   }
 }

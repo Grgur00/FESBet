@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { Routes, RouterModule } from '@angular/router';
-import { RouleteComponent } from './roulete/roulete.component';
+import { RouleteComponent } from './roulette/roulete.component';
 import { PlayerComponent } from './player/player.component';
 import { BlackJackComponent } from './black-jack/black-jack.component';
 import { HomePageComponent } from './home-page/home-page.component';
