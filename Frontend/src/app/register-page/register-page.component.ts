@@ -9,6 +9,7 @@ import { AuthService } from '../services/auth.service';
 export class RegisterPageComponent {
   email: string = '';
   password: string = '';
+  username: string = '';
 
   constructor(private auth: AuthService){}
 
@@ -21,9 +22,14 @@ export class RegisterPageComponent {
       alert('Please enter password');
       return;
     }
+    if(this.username == ''){
+      alert('Please enter username');
+      return
+    }
 
-    this.auth.register(this.email, this.password);
+    this.auth.register(this.email, this.password, this.username);
     this.email = '';
     this.password = '';
+    this.username = '';
   }
 }

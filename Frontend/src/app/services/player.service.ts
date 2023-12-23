@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
   providedIn: 'root'
 })
 export class PlayerService {
+  constructor() {}
   player: IPlayer = {
     id: 0,
     username: 'example_username',
@@ -20,5 +21,15 @@ export class PlayerService {
   createUser(newUser: IPlayer){
     this.player = newUser;
   }
-  constructor() { }
+
+  createNewPlayer(email: string, username: string) {
+    const credits = 1000; // Give 1000 credits to new users
+    const newPlayerData = {
+      username: username,
+      email: email,
+      credits: credits
+    };
+  }
+
+
 }

@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import {AngularFireModule} from '@angular/fire/compat';
 import {AngularFireAuthModule} from '@angular/fire/compat/auth';
+import {AngularFireDatabaseModule} from '@angular/fire/compat/database'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
@@ -15,6 +16,7 @@ import { environment } from 'src/environments/environment';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 const appRoutes : Routes = [
   {path: '', redirectTo: 'Login', pathMatch:'full'},
@@ -34,7 +36,8 @@ const appRoutes : Routes = [
     BlackJackComponent,
     HomePageComponent,
     LoginPageComponent,
-    RegisterPageComponent
+    RegisterPageComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -44,8 +47,12 @@ const appRoutes : Routes = [
     RouterModule.forRoot(appRoutes, {onSameUrlNavigation: 'reload'}),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
+    AngularFireDatabaseModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+export class AppModule {
+
+ }
