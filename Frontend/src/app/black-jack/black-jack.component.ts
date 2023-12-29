@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Card} from '../ultis/models';
 import { Deck, doesUserHaveSufficientCreditsToPlaceABet } from '../ultis/ultis';
-import { PlayerService } from '../services/player.service';
+import { PlayerService } from '../services/PlayerService/player.service';
 
 @Component({
   selector: 'app-black-jack',

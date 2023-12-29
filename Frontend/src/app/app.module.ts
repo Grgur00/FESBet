@@ -16,16 +16,16 @@ import { environment } from 'src/environments/environment';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { authGuard } from './services/AuthService/auth.guard';
 
 const appRoutes : Routes = [
   {path: '', redirectTo: 'Login', pathMatch:'full'},
   {path: 'Login', component: LoginPageComponent},
   {path: 'Register', component: RegisterPageComponent},
-  {path: 'MainMenu', component: HomePageComponent},
-  {path: 'Roulete', component: RouleteComponent},
-  {path: 'Player', component: PlayerComponent},
-  {path: 'BlackJack', component: BlackJackComponent}
+  {path: 'MainMenu', component: HomePageComponent, canActivate: [authGuard]},
+  {path: 'Roulete', component: RouleteComponent, canActivate: [authGuard]},
+  {path: 'Player', component: PlayerComponent, canActivate: [authGuard]},
+  {path: 'BlackJack', component: BlackJackComponent, canActivate: [authGuard]}
 ]
 @NgModule({
   declarations: [

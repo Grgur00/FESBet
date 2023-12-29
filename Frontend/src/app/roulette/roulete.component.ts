@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { wheelNumbersInOrder, wheelNumbersUlti } from '../ultis/ultis';
 import { MenuComponent } from '../menu/menu.component';
-import { PlayerService } from '../services/player.service';
+import { PlayerService } from '../services/PlayerService/player.service';
 import { wheelNumbersArray, wheelColoursArray } from '../ultis/ultis';
 import { WheelNumber, WheelColour } from '../ultis/models';
 import { doesUserHaveSufficientCreditsToPlaceABet } from '../ultis/ultis';

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { PlayerService } from '../services/player.service';
+import { PlayerService } from '../services/PlayerService/player.service';
 import { IPlayer } from '../ultis/models';
+import { AuthService } from '../services/AuthService/auth.service';
 
 @Component({
   selector: 'app-player',
@@ -9,9 +10,13 @@ import { IPlayer } from '../ultis/models';
 })
 
 export class PlayerComponent {
-constructor(private playerService: PlayerService){}
+constructor(private playerService: PlayerService, private auth: AuthService){}
 
 player: IPlayer = this.playerService.player;
 
+
+logOut(){
+  this.auth.signOut()
+}
 
 }

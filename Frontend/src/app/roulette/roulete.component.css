@@ -2,6 +2,10 @@
   -webkit-transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out; /* Standard syntax for transition */
   -webkit-tap-highlight-color: transparent;
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  max-width: 400px;
 
 }
 div{

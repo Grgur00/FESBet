@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../services/auth.service';
-import { PlayerService } from '../services/player.service';
+import { AuthService } from '../services/AuthService/auth.service';
+import { PlayerService } from '../services/PlayerService/player.service';
 
 @Component({
   selector: 'app-login-page',
@@ -24,7 +24,6 @@ export class LoginPageComponent {
     }
 
     this.auth.login(this.email, this.password);
-    this.plyerService.player.email = this.email;
     this.email = '';
     this.password = '';
   }

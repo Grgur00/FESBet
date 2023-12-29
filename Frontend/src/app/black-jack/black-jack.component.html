@@ -37,26 +37,22 @@
 <button *ngIf="!playerIsBust && gameInProgress" class="btn" (click)="holdBet()"> Hold</button>
 <button *ngIf="playerIsBust || playerHold" class="btn" (click)="clearAllCards()">Try Again</button>
 
-<div class="chip-image-row">
-<div *ngIf="gameInProgress == false || playerBet == 5" class="chip-image-button" (click)="setPlayerBet(5)"  [ngStyle]="{'transform': getChipSize(5)}">
-  <img src="assets/Images/Chips/5 credits chip.png" alt="5"/>
+<div class="chips-area">
+  <div class="chip-image-row">
+    <div *ngIf="gameInProgress == false || playerBet == 5" class="chip-image-button" (click)="setPlayerBet(5)"  [ngStyle]="{'transform': getChipSize(5)}">
+      <img src="assets/Images/Chips/5 credits chip.png" alt="5"/>
+    </div>
+    <div *ngIf="gameInProgress == false || playerBet == 10" class="chip-image-button" (click)="setPlayerBet(10)"  [ngStyle]="{'transform': getChipSize(10)}">
+      <img src="assets/Images/Chips/10 credits chip.png" alt="10"/>
+    </div>
+    <div *ngIf="gameInProgress == false || playerBet == 20" class="chip-image-button" (click)="setPlayerBet(20)"  [ngStyle]="{'transform': getChipSize(20)}">
+      <img src="assets/Images/Chips/20 credits chip.png" alt="20"/>
+    </div>
+    <div *ngIf="gameInProgress == false || playerBet == 50" class="chip-image-button" (click)="setPlayerBet(50)"  [ngStyle]="{'transform': getChipSize(50)}">
+      <img src="assets/Images/Chips/50 credits chip.png" alt="50"/>
+    </div>
+    <div *ngIf="gameInProgress == false || playerBet == 100" class="chip-image-button" (click)="setPlayerBet(100)"  [ngStyle]="{'transform': getChipSize(100)}">
+      <img src="assets/Images/Chips/100 credits chip.png" alt="100"/>
+    </div>
+    </div>
 </div>
-<div *ngIf="gameInProgress == false || playerBet == 10" class="chip-image-button" (click)="setPlayerBet(10)"  [ngStyle]="{'transform': getChipSize(10)}">
-  <img src="assets/Images/Chips/10 credits chip.png" alt="10"/>
-</div>
-<div *ngIf="gameInProgress == false || playerBet == 20" class="chip-image-button" (click)="setPlayerBet(20)"  [ngStyle]="{'transform': getChipSize(20)}">
-  <img src="assets/Images/Chips/20 credits chip.png" alt="20"/>
-</div>
-<div *ngIf="gameInProgress == false || playerBet == 50" class="chip-image-button" (click)="setPlayerBet(50)"  [ngStyle]="{'transform': getChipSize(50)}">
-  <img src="assets/Images/Chips/50 credits chip.png" alt="50"/>
-</div>
-<div *ngIf="gameInProgress == false || playerBet == 100" class="chip-image-button" (click)="setPlayerBet(100)"  [ngStyle]="{'transform': getChipSize(100)}">
-  <img src="assets/Images/Chips/100 credits chip.png" alt="100"/>
-</div>
-</div>
-
-
-
-
-
-

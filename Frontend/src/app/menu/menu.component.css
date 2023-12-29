@@ -2,6 +2,8 @@
   display: flex;
   justify-content: flex-start;
   margin-bottom: 20px;
+  width: 100%;
+  height: auto;
 }
 
 .menu-button {
@@ -17,6 +19,8 @@
   transition-duration: 0.4s;
   cursor: pointer;
   border-radius: 12px;
+  width: 100%;
+  height: auto;
 }
 
 .menu-balance {
@@ -32,6 +36,8 @@
   transition-duration: 0.4s;
   cursor: pointer;
   border-radius: 12px;
+  width: 100%;
+  height: auto;
 }
 
 .menu-balance:hover, .menu-button:hover {
@@ -44,3 +50,4 @@
   font-size: 20px;
   margin-left: auto;
 }
+

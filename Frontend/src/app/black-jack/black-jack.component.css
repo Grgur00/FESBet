@@ -1,22 +1,29 @@
 .chip-image-row {
-  justify-content: space-between !important;
+  display: -ms-inline-grid !important;
   margin: 20px !important;
   border-style: none !important;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .chip-image-button {
-  cursor: pointer !important;
-  padding: 10px !important;
-  border: 1px solid #ddd !important;
-  border-radius: 5px !important;
-  border-style: hidden !important;
-  display: inline-block !important;
+  cursor: pointer;
+  padding: 10px;
+  margin: 5px;
+  display: flex;
+  align-items: center;
 }
 
 .chip-image-button img {
-  width: 100px !important;
-  height: 100px !important;
-  object-fit: cover !important;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.chip-area{
+  display: flex;
+  justify-content: flex-start;
 }
 
 div {
@@ -32,6 +39,7 @@ div {
   display: flex !important;
   flex-direction: column !important;
   width: fit-content !important;
+  justify-content: flex-end;
 }
 
 .dealer-section, .player-section {
